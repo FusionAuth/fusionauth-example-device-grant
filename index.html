@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Device Authorization</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	<style>
+		.tv {background-image: url('tv.png'); width:946px; height:600px; color:#e6e6e6;}
+		.display-bar {background-color:#e6e6e6; font-family:monospace; color:#444444;}
+	</style>
+  </head>
+  <body>
+
+  	<div class="container">
+  		<h1>Device Authorization</h1>
+
+  		<div class="jumbotron tv">
+	  		<div id="connect-device" class="text-center">
+	  			<h2>Connect this device</h2>
+	  			<button id="connectBtn" class="btn btn-primary btn-lg">Connect</button>
+	  			<br/><br/>
+	  			<p id="error-msg" class="alert alert-danger" role="alert" style="display:none">An error occurred. Please try again.</p>
+			</div>
+
+			<div id="sign-in" style="display:none;">
+				<h2>Sign in to Activate</h2>
+				<p >To sign in on your PC, notebook, or mobile device, go to:</p>
+				<h2 id="device-url" class="display-bar text-center"></h2>
+				<p><br/>When prompted, enter the following activation code:</p>
+				<h2 id="user-code" class="display-bar text-center"></h2>
+				<br/>
+				<p style="float:left;"><br/>Or scan the QR code:</p><a id="qrlink"><div id="qrcode" style="float:right;"></div></a>
+			</div>
+
+			<div id="success-msg" class="text-center" style="display:none;">
+				<h1>Congratulations</h1>
+				<h2>Your Device is now Connected</h2>
+				<iframe id="fa-tut" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+	<script src="easy.qrcode.min.js"></script>
+	<script src="main.js"></script>
+  </body>
+</html>
