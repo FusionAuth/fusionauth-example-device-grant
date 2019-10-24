@@ -1,6 +1,6 @@
 var baseFusionAuthURL = 'http://localhost:9011';
 var grantType = 'urn:ietf:params:oauth:grant-type:device_code';
-var clientId = '12443725-ee69-4fb9-9e81-6f95cf95bbbf';
+var clientId = 'c6b9de0c-2f71-4019-920b-58bc2d4206fc';
 var tokenEndpoint;
 var expiresIn;
 var intervalSeconds = 5;
