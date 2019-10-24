@@ -12,7 +12,7 @@ Usage
     1. Enable Device Grant on the OAuth tab under "Enabled grants"
     1. Enter a Device Verification URL. 
       - This URL should be as short (and sweet) as possible.
-      - This URL will be either landing page to your application that can perform a `302` redirect to the FusionAuth device page with the required request parameters or a URL configured in a Proxy to perform the same redirect.
+      - This URL will be either landing page to your application that can perform a `302` redirect to the FusionAuth device page with the required request parameters or a URL configured in a proxy to perform the same redirect.
       - For example, `https://acme.com/activate` which would be able to redirect to `https://login.acme.com/oauth2/device?client_id={client_id}&tenantId={tenantId}` where `https://login.acme.com` is the URL of your FusionAuth service.
     1. Click save (blue icon at the top right).
 1. Edit the `main.js` file in this project
