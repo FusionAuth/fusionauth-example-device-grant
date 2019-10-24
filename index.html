@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Device Authorization</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-	<style>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	<style>
 		.tv {background-image: url('tv.png'); width:946px; height:600px; color:#e6e6e6;}
-		.display-bar {background-color:#e6e6e6; font-family:monospace; color:#444444;}
+		.display-bar {font-family:monospace; font-size: 52px;}
 	</style>
   </head>
   <body>
@@ -14,28 +13,36 @@
   	<div class="container">
   		<h1>Device Authorization</h1>
 
-  		<div class="jumbotron tv">
+  		<div class="jumbotron tv pl-5 pr-5 pt-5 pb-5">
 	  		<div id="connect-device" class="text-center">
-	  			<h2>Connect this device</h2>
-	  			<button id="connectBtn" class="btn btn-primary btn-lg">Connect</button>
-	  			<br/><br/>
-	  			<p id="error-msg" class="alert alert-danger" role="alert" style="display:none">An error occurred. Please try again.</p>
+	  			<h2 class="mt-3 mb-3">Connect this device</h2>
+					<div class="mb-5 mt-5">
+	  			  <button id="connectBtn" class="btn btn-primary btn-lg">Click to Start</button>
+					</div>
+	  			<p id="error-msg" class="alert alert-danger" role="alert" style="display:none">An error occurred. Please restart by clicking the Begin button.</p>
 			</div>
 
 			<div id="sign-in" style="display:none;">
-				<h2>Sign in to Activate</h2>
-				<p >To sign in on your PC, notebook, or mobile device, go to:</p>
-				<h2 id="device-url" class="display-bar text-center"></h2>
-				<p><br/>When prompted, enter the following activation code:</p>
-				<h2 id="user-code" class="display-bar text-center"></h2>
-				<br/>
-				<p style="float:left;"><br/>Or scan the QR code:</p><a id="qrlink"><div id="qrcode" style="float:right;"></div></a>
+				<h2>Sign in to activate your device</h2>
+				<p class="mt-5 mb-1">To complete activation, navigate to the following site and enter the following activation code.</p>
+				<h2 id="device-url" class="text-center mt-3 mb-3" style="font-size: 32px;"></h2>
+				<h2 id="user-code" class="display-bar text-center mb-4"></h2>
+
+				<hr style="margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid #c7c7c7;">
+
+				<p class="mt-4">Or scan the QR code using your mobile device.</p>
+
+				<div class="position-relative w-100 mb-auto" style="height: 140px;">
+					<div class="position-absolute" style="right: 10px; bottom: 25px;">
+						<a id="qrlink"><div id="qrcode"></div></a>
+					</div>
+				</div>
 			</div>
 
 			<div id="success-msg" class="text-center" style="display:none;">
 				<h1>Congratulations</h1>
 				<h2>Your Device is now Connected</h2>
-				<iframe id="fa-tut" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<iframe id="fa-tut" width="560" height="315" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
 		</div>
 

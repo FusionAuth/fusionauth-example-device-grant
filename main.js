@@ -1,7 +1,7 @@
-var openIdConfigEndpoint = 'https://local.fusionauth.io/.well-known/openid-configuration';
+var baseFusionAuthURL = 'http://localhost:9011';
 var grantType = 'urn:ietf:params:oauth:grant-type:device_code';
-var clientId = 'c6b9de0c-2f71-4019-920b-58bc2d4206fc';
-var tokenEndpoint = 'https://local.fusionauth.io/oauth2/token';
+var clientId = '12443725-ee69-4fb9-9e81-6f95cf95bbbf';
+var tokenEndpoint;
 var expiresIn;
 var intervalSeconds = 5;
 var deviceCode;
@@ -13,14 +13,15 @@ $("#connectBtn").click(function() {
 	connectDevice();
 });
 
-// retrieve the device_authorization_endpoint
+// retrieve the device_authorization_endpoint and token_endpoint
 $(document).ready(function() {
 	$.ajax({
 		type: 'GET',
-		url: openIdConfigEndpoint,
+		url: baseFusionAuthURL + '/.well-known/openid-configuration',
 		datatype: 'json',
 		success: function(data) {
 			deviceAuthEndpoint = data.device_authorization_endpoint;
+			tokenEndpoint = data.token_endpoint;
 		}
 	});
 });
@@ -36,18 +37,15 @@ function connectDevice() {
 			expiresIn = data.expires_in;
 			intervalSeconds = data.interval;
 			deviceCode = data.device_code;
-			
+
 		    // make user_code a little more readable
 		    let userCode = data.user_code;
 		    let ucLen = userCode.length / 2;
 		    userCode = userCode.substring(0,ucLen) + "-" + userCode.substring(ucLen);
 
-		    // make the URL simpler
-		    let verificationURL = $('<a>', {
-		        href: data.verification_uri
-		    });
-			$("#device-url").text(verificationURL.prop('hostname') + verificationURL.prop('pathname'));
-			
+			// Remove the schema to make it simpler on screen
+			$("#device-url").text(data.verification_uri.replace("http://", "").replace("https://", ""));
+
 			$("#user-code").text(userCode);
 			$("#connect-device").hide();
 			$("#sign-in").show();
@@ -56,9 +54,6 @@ function connectDevice() {
 			$("#qrcode").empty();
 			new QRCode(document.getElementById("qrcode"), {
 			    text: data.verification_uri_complete,
-			    logo: "logo.png",
-			    logoBackgroundColor: '#ffffff',
-			    logoBackgroundTransparent: false,
 			    width: 150,
 			    height:150
 			});
@@ -108,4 +103,3 @@ function pollForToken() {
 		});
 	}, intervalSeconds * 1000);
 }
-

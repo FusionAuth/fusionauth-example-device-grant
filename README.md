@@ -7,21 +7,18 @@ Use in conjunction with an installation of FusionAuth to demo the entire Device 
 Usage
 ----
 
-1. Download and install FusionAuth
+1. [Download and install FusionAuth](https://fusionauth.io/download)
 1. [Create an Application](https://fusionauth.io/docs/v1/tech/tutorials/create-an-application)
-    1. Under Oauth config, disable Require authentication.
-    1. Enable Device Grant.
-    1. Enter a Device Verification URL. For this example it can be '/oauth2/device'
+    1. Enable Device Grant on the OAuth tab under "Enabled grants"
+    1. Enter a Device Verification URL. 
+      - This URL should be as short (and sweet) as possible.
+      - This URL will be either landing page to your application that can perform a `302` redirect to the FusionAuth device page with the required request parameters or a URL configured in a Proxy to perform the same redirect.
+      - For example, `https://acme.com/activate` which would be able to redirect to `https://login.acme.com/oauth2/device?client_id={client_id}&tenantId={tenantId}` where `https://login.acme.com` is the URL of your FusionAuth service.
     1. Click save (blue icon at the top right).
-1. Edit the default tenant
-    1. Set the Device Grant User Code generator to your desired length and generator type.
-    1. Set the Device Grant Code duration to your desired TTL.
-    1. Click save.
-1. Edit the main.js file in this project
-    1. Change openIdConfigEndpoint to contain your running instance of FusionAuth
-    1. Change clientId to that of the newly created Application
-    1. Change tokenEndpoint to contain your running instance of FusionAuth
+1. Edit the `main.js` file in this project
+    1. Change `baseFusionAuthURL` to your base FusionAuth URL
+    1. Change `clientId` to that of the newly created Application in the previous step
 1. Run this example
-    1. Open the index.html from this project in a browser
-    1. Click the 'Connect' button
-    1. Browse to the URL provided and enter the code.
+    1. Open the `index.html` from this project in a browser
+    1. Click the "Click to Start" button
+    1. Browse to the URL provided and enter the code or scan the QR code with your phone.
