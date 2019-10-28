@@ -31,17 +31,22 @@ function connectDevice() {
 	$.ajax({
 		type: 'POST',
 		url: deviceAuthEndpoint,
-		data: {'client_id': clientId, 'scope': 'offline_access'},
+		data: {
+			'client_id': clientId,
+			'scope': 'offline_access',
+			'metaData.device.name': 'Demo TV app',
+			'metaData.device.type': 'TV'
+		},
 		datatype: 'json',
 		success: function(data) {
 			expiresIn = data.expires_in;
 			intervalSeconds = data.interval;
 			deviceCode = data.device_code;
 
-		    // make user_code a little more readable
-		    let userCode = data.user_code;
-		    let ucLen = userCode.length / 2;
-		    userCode = userCode.substring(0,ucLen) + "-" + userCode.substring(ucLen);
+			// make user_code a little more readable
+			let userCode = data.user_code;
+			let ucLen = userCode.length / 2;
+			userCode = userCode.substring(0,ucLen) + "-" + userCode.substring(ucLen);
 
 			// Remove the schema to make it simpler on screen
 			$("#device-url").text(data.verification_uri.replace("http://", "").replace("https://", ""));
