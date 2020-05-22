@@ -31,6 +31,7 @@ function connectDevice() {
 	$.ajax({
 		type: 'POST',
 		url: deviceAuthEndpoint,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 		data: {
 			'client_id': clientId,
 			'scope': 'offline_access',
@@ -78,6 +79,7 @@ function pollForToken() {
 		$.ajax({
 			type: 'POST',
 			url: tokenEndpoint,
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			data: {'device_code': deviceCode, 'grant_type': grantType, 'client_id': clientId},
 			datatype: 'json',
 			success: function(data) {
