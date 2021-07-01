@@ -2,55 +2,105 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Device Authorization</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	<style>
+    <title>Device Authorization Demo</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<style>
 		.tv {background-image: url('tv.png'); width:946px; height:600px; color:#e6e6e6;}
 		.display-bar {font-family:monospace; font-size: 52px;}
+		.jumbotron{
+			padding-top: 32px;
+		}
+		form {
+			margin-left: 25px;
+			width: 50%;
+		}
+
+		form label {
+			display: block;
+		}
+
+		form input, textarea {
+			background-color: #e0e0e0;
+			display: block;
+			width: 100%;
+		}
+
+		form textarea {
+			height: 75px;
+		}
 	</style>
   </head>
   <body>
 
-  	<div class="container">
-  		<h1>Device Authorization</h1>
+  	<div class="container pl-5 pr-5 pt-5 pb-5">
+  		<h1>Device Authorization Demo</h1>
 
-  		<div class="jumbotron tv pl-5 pr-5 pt-5 pb-5">
-	  		<div id="connect-device" class="text-center">
-	  			<h2 class="mt-3 mb-3">Connect this device</h2>
-					<div class="mb-5 mt-5">
-	  			  <button id="connectBtn" class="btn btn-primary btn-lg">Click to Start</button>
+  		<div class="jumbotron tv ">
+	  		<div id="connect-device" class="text-center" style="height: 100%;">
+					<div style="margin-top: 200px;">
+	  			  <button id="connect-button" class="btn btn-primary btn-lg">Click to Start</button>
 					</div>
 	  			<p id="error-msg" class="alert alert-danger" role="alert" style="display:none">An error occurred. Please restart by clicking the Begin button.</p>
-			</div>
+			  </div>
 
-			<div id="sign-in" style="display:none;">
+			<div id="sign-in" style="display:none; padding: 15px;">
 				<h2>Sign in to activate your device</h2>
 				<p class="mt-5 mb-1">To complete activation, navigate to the following site and enter the following activation code.</p>
-				<h2 id="device-url" class="text-center mt-3 mb-3" style="font-size: 32px;"></h2>
-				<h2 id="user-code" class="display-bar text-center mb-4"></h2>
+				<div id="device-url" class="text-center mt-3 mb-3" style="font-size: 32px; overflow-x: scroll; white-space: nowrap;"></div>
+				<div id="user-code" class="display-bar text-center mb-4"></div>
 
 				<hr style="margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid #c7c7c7;">
 
-				<p class="mt-4">Or scan the QR code using your mobile device.</p>
+				<p class="mt-2">Or scan the QR code using your mobile device.</p>
 
 				<div class="position-relative w-100 mb-auto" style="height: 140px;">
-					<div class="position-absolute" style="right: 10px; bottom: 25px;">
+					<div class="position-absolute" style="right: 10px; bottom: 35px;">
 						<a id="qrlink"><div id="qrcode"></div></a>
 					</div>
 				</div>
 			</div>
 
-			<div id="success-msg" class="text-center" style="display:none;">
-				<h1>Congratulations</h1>
-				<h2>Your Device is now Connected</h2>
-				<iframe id="fa-tut" width="560" height="315" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<div id="success-msg" style="display:none;">
+				<div class="text-center">
+					<iframe id="fa-tut" width="870" height="490" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
 			</div>
+
 		</div>
 
-	</div>
+			<div style="display: flex; justify-content: flex-end;">
+				<div>
+					<button id="reset-button" class="btn btn-link">Click to Reset</button>
+				</div>
+			</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-	<script src="easy.qrcode.min.js"></script>
-	<script src="main.js"></script>
+			<div>
+				<strong>Configuration</strong>
+				<form id="configuration" class="mb-4 mt-2 ml-0">
+					<label>
+						Complete URL
+						<input id="configured-url" type="text" autocomplete="off" name="url" value="https://youtu.be/wQklLZZP_3s">
+					</label>
+				</form>
+
+				<strong>Console Linking Simulator</strong>
+				<form id="console-simulator" class="mt-2 ml-0">
+					<label>
+						IdentityProvider Id:
+						<input type="text" autocomplete="off" name="identityProviderId">
+					</label>
+					<label>
+						IdentityProvider Token:
+						<textarea name="identityProviderToken"></textarea>
+					</label>
+				</form>
+			</div>
+
+</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+		<script src="easy.qrcode.min.js"></script>
+		<script src="main.js"></script>
   </body>
 </html>

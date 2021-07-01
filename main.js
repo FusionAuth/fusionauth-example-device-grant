@@ -9,10 +9,6 @@ var pollId;
 var deviceAuthEndpoint;
 var accessToken;
 
-$("#connectBtn").click(function() {
-	connectDevice();
-});
-
 // retrieve the device_authorization_endpoint and token_endpoint
 $(document).ready(function() {
 	$.ajax({
@@ -24,17 +20,34 @@ $(document).ready(function() {
 			tokenEndpoint = data.token_endpoint;
 		}
 	});
+
+	// Load saved values
+	const config = JSON.parse(localStorage.getItem('config') || '{}');
+	for (const key in config) {
+		$("input[name='" + key + "'],textarea[name='" + key + "']").val(config[key]);
+	}
+
+	$("#connect-button").click(connectDevice);
+	$("#reset-button").click(reset);
+	$('input,textarea').on('keyup', function(e) {
+		const target = $(e.target);
+		const config = JSON.parse(localStorage.getItem('config') || '{}');
+		config[target.attr('name')] = target.val();
+		localStorage.setItem('config', JSON.stringify(config));
+	});
 });
 
 // call the device_authorization_endpoint, display the verification_uri and user_code, then start polling /token endpoint
 function connectDevice() {
+	const idpId = $('input[name="identityProviderId"]').val();
+	const idpToken = $('textarea[name="identityProviderToken"]').val();
 	$.ajax({
 		type: 'POST',
 		url: deviceAuthEndpoint,
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 		data: {
 			'client_id': clientId,
-			'scope': 'offline_access',
+			'scope': 'offline_access idp-link:' + idpId + ':' + idpToken,
 			'metaData.device.name': 'Demo TV app',
 			'metaData.device.type': 'TV'
 		},
@@ -63,7 +76,8 @@ function connectDevice() {
 			    width: 150,
 			    height:150
 			});
-			$("#qrlink").attr("href", data.verification_uri_complete);
+			$("#qrlink").attr("href", data.verification_uri_complete)
+					        .attr("target", "_blank");
 
 			pollForToken();
 		},
@@ -88,7 +102,7 @@ function pollForToken() {
 		  		accessToken = data.access_token;
 		  		$("#sign-in").hide();
 		  		$("#success-msg").show();
-		  		$("#fa-tut").attr("src", "https://www.youtube.com/embed/_ro3jH5Xkgo?autoplay=1");
+		  		$("#fa-tut").attr("src", $("#configured-url").val());
 			},
 			error: function(data) {
 				let err = $.parseJSON(data.responseText);
@@ -109,4 +123,14 @@ function pollForToken() {
 			}
 		});
 	}, intervalSeconds * 1000);
+}
+
+function reset() {
+	$("#connect-device").show();
+	$("#sign-in").hide();
+	$("#success").hide();
+	$("#fa-tut").hide();
+	if (pollId) {
+		clearInterval(pollId);
+	}
 }
