@@ -39,15 +39,20 @@ $(document).ready(function() {
 
 // call the device_authorization_endpoint, display the verification_uri and user_code, then start polling /token endpoint
 function connectDevice() {
-	const idpId = $('input[name="identityProviderId"]').val();
-	const idpToken = $('textarea[name="identityProviderToken"]').val();
+	const idpId = $('input[name="identityProviderId"]').val() || '';
+	const idpToken = $('textarea[name="identityProviderToken"]').val() || '';
+	let idpLinkScope = '';
+	if (idpId && idpToken) {
+		idpLinkScope = ' idp-link:' + idpId + ':' + idpToken;
+	}
+
 	$.ajax({
 		type: 'POST',
 		url: deviceAuthEndpoint,
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 		data: {
 			'client_id': clientId,
-			'scope': 'offline_access idp-link:' + idpId + ':' + idpToken,
+			'scope': 'offline_access' + idpLinkScope,
 			'metaData.device.name': 'Demo TV app',
 			'metaData.device.type': 'TV'
 		},
@@ -102,7 +107,6 @@ function pollForToken() {
 		  		accessToken = data.access_token;
 		  		$("#sign-in").hide();
 		  		$("#success-msg").show();
-		  		$("#fa-tut").attr("src", $("#configured-url").val());
 			},
 			error: function(data) {
 				let err = $.parseJSON(data.responseText);

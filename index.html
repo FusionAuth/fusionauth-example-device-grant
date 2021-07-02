@@ -5,14 +5,14 @@
     <title>Device Authorization Demo</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<style>
-		.tv {background-image: url('tv.png'); width:946px; height:600px; color:#e6e6e6;}
+		.tv {background-image: url('img/tv.png'); width:946px; height:600px; color:#e6e6e6;}
 		.display-bar {font-family:monospace; font-size: 52px;}
 		.jumbotron{
 			padding-top: 32px;
 		}
 		form {
 			margin-left: 25px;
-			width: 50%;
+			width: 75%;
 		}
 
 		form label {
@@ -20,13 +20,15 @@
 		}
 
 		form input, textarea {
-			background-color: #e0e0e0;
+			background-color: #e9e9e9;
+			border: 1px solid #b3b3b3;
 			display: block;
 			width: 100%;
 		}
 
 		form textarea {
-			height: 75px;
+			height: 125px;
+			resize: both;
 		}
 	</style>
   </head>
@@ -44,7 +46,7 @@
 			  </div>
 
 			<div id="sign-in" style="display:none; padding: 15px;">
-				<h2>Sign in to activate your device</h2>
+				<div style="font-size: 24px;"><strong>HBO</strong> <span style="font-weight: 200;">NOW</span> | Sign in</div>
 				<p class="mt-5 mb-1">To complete activation, navigate to the following site and enter the following activation code.</p>
 				<div id="device-url" class="text-center mt-3 mb-3" style="font-size: 32px; overflow-x: scroll; white-space: nowrap;"></div>
 				<div id="user-code" class="display-bar text-center mb-4"></div>
@@ -62,7 +64,7 @@
 
 			<div id="success-msg" style="display:none;">
 				<div class="text-center">
-					<iframe id="fa-tut" width="870" height="490" style="border: none;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<img id="fa-tut" width="870" height="490" src="/img/hbo_now.jpeg"/>
 				</div>
 			</div>
 
@@ -75,15 +77,8 @@
 			</div>
 
 			<div>
-				<strong>Configuration</strong>
-				<form id="configuration" class="mb-4 mt-2 ml-0">
-					<label>
-						Complete URL
-						<input id="configured-url" type="text" autocomplete="off" name="url" value="https://youtu.be/wQklLZZP_3s">
-					</label>
-				</form>
 
-				<strong>Console Linking Simulator</strong>
+				<strong>Console linking simulator</strong>
 				<form id="console-simulator" class="mt-2 ml-0">
 					<label>
 						IdentityProvider Id:
