@@ -23,7 +23,7 @@ Usage
     1. Change `baseFusionAuthURL` to your base FusionAuth URL
     1. Change `clientId` to that of the newly created Application in the previous step
 1. Run this example
-    1. Run `python3 -m http.server` to start a simple HTTP server for the `index.html` file.
-    1. Open `localhost:8080` in your browser
+    1. Run `python3 -m http.server --bind 127.0.0.1` to start a simple HTTP server for the `index.html` file.
+    1. Open `http://localhost:8080` in your browser
     1. Click the "Click to Start" button
     1. Browse to the URL provided and enter the code or scan the QR code with your phone.
